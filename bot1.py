@@ -8,16 +8,15 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 import json
 import os
 
-# توکن ربات تلگرام خود را اینجا قرار دهید
-BOT_TOKEN = '8374056469:AAEPHX04QMel4FZPULe5A9xWGgsk21YEr1I'
+# توکن ربات تلگرام از متغیر محیطی
+BOT_TOKEN = os.getenv('BOT_TOKEN', '8374056469:AAEPHX04QMel4FZPULe5A9xWGgsk21YEr1I')
 
+# ID ادمین اصلی از متغیر محیطی
+SUPER_ADMIN_ID = int(os.getenv('SUPER_ADMIN_ID', '6479704151'))
 
-# ID ادمین اصلی - این رو با user ID خودت عوض کن
-SUPER_ADMIN_ID = 6479704151
-
-# اطلاعات مدیر (قابل تغییر)
-MANAGER_NAME = "مهدی"
-MANAGER_USERNAME = "@Mahdi9193a"
+# اطلاعات مدیر از متغیرهای محیطی
+MANAGER_NAME = os.getenv('MANAGER_NAME', "مهدی")
+MANAGER_USERNAME = os.getenv('MANAGER_USERNAME', "@Mahdi9193a")
 
 # ذخیره اطلاعات کاربران
 user_sessions = {}
@@ -767,13 +766,10 @@ def main():
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     print("🤖 ربات قرعه‌کشی با سیستم ادمین و مبلغ جایزه آماده است!")
-    print("📱 برای استفاده:")
-    print("1. توکن ربات را در کد قرار دهید")
-    print(f"2. SUPER_ADMIN_ID را با User ID خود عوض کنید (فعلی: {SUPER_ADMIN_ID})")
-    print(f"3. اطلاعات مدیر را تغییر دهید (فعلی: {MANAGER_NAME} {MANAGER_USERNAME})")
-    print("4. از دستور /myid برای دریافت User ID استفاده کنید")
-    print("\n📦 برای نصب کتابخانه مورد نیاز:")
-    print("pip install python-telegram-bot")
+    print(f"📱 توکن: {BOT_TOKEN[:10]}...")
+    print(f"👑 ادمین اصلی: {SUPER_ADMIN_ID}")
+    print(f"👤 مدیر: {MANAGER_NAME} {MANAGER_USERNAME}")
+    print("\n🚀 ربات در حال اجرا...")
     
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
